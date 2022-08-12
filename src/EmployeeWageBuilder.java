@@ -43,12 +43,12 @@ public class EmployeeWageBuilder {
         EmployeeWageBuilder company_three = new EmployeeWageBuilder("Company Three",30,26,150);
         company_one.calculateEmployeeWage();
         System.out.println(company_one);
-        System.out.println("-----------------------------------------------------------------");
+        System.out.println("---------------------------------------------------");
         company_two.calculateEmployeeWage();
         System.out.println(company_two);
-        System.out.println("-----------------------------------------------------------------");
+        System.out.println("---------------------------------------------------");
         company_three.calculateEmployeeWage();
         System.out.println(company_three);
-        System.out.println("-----------------------------------------------------------------");
+        System.out.println("---------------------------------------------------");
     }
 }
