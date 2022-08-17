@@ -29,5 +29,6 @@ public class EmployeeWageBuilderArray implements InterfaceCalculateEmployeeWage 
         employeeWageBuilder.companyEmployeeWages("Company Two",25,22,120);
         employeeWageBuilder.companyEmployeeWages("Company Three",30,26,150);
         employeeWageBuilder.calculateEmployeeWage();
+        System.out.println("Total Wage for Company Two is : "+employeeWageBuilder.getTotalWage("Company Two"));
     }
 }
