@@ -24,7 +24,7 @@ public class EmployeeWageClassMethod {
         int totalEmployeeWage = totalEmployeeWorkHour * wagePerHour;
         System.out.println("Total Work Hour => "+totalEmployeeWorkHour);
         System.out.println("Total Employee Wage => "+totalEmployeeWage);
-        System.out.println("------------------------------------------");
+        System.out.println("-----------------------------------------");
     }
     public static void main(String[] args) {
         calculateEmployeeWage("Company One",20,20,100);
