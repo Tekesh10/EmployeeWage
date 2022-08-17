@@ -1,47 +1,33 @@
-import java.util.Random;
-
-public class EmployeeWageBuilderArray {
-    public static final int FULL_TIME = 1;
-    public static final int PART_TIME = 2;
-    int numberOfCompany = 0;
-    CompanyEmployeeWage[] companyEmployeeWagesArray;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+public class EmployeeWageBuilderArray implements InterfaceCalculateEmployeeWage {
+    LinkedList<CompanyEmployeeWage>companyEmployeeWageLinkedList;
+    Map<String,CompanyEmployeeWage>companyEmployeeWageMap;
     public EmployeeWageBuilderArray() {
-        companyEmployeeWagesArray = new CompanyEmployeeWage[5];
+        companyEmployeeWageLinkedList = new LinkedList<>();
+        companyEmployeeWageMap = new HashMap<>();
     }
-    void companyEmployeeWage(String companyName, int wagePerHour, int totalWorkingDaysPerMonth, int totalWorkingHoursPerMonth) {
-        companyEmployeeWagesArray[numberOfCompany] = new CompanyEmployeeWage(companyName,wagePerHour,totalWorkingDaysPerMonth,totalWorkingHoursPerMonth);
-        numberOfCompany++;
+    public void companyEmployeeWages(String companyName, int wagePerHour, int totalWorkingDaysPerMonth, int totalWorkingHoursPerMonth) {
+        CompanyEmployeeWage companyEmployeeWage  = new CompanyEmployeeWage(companyName,wagePerHour,totalWorkingDaysPerMonth,totalWorkingHoursPerMonth);
+        companyEmployeeWageLinkedList.add(companyEmployeeWage);
+        companyEmployeeWageMap.put(companyName,companyEmployeeWage);
     }
-    void calculateEmployeeWage() {
-        for (int i = 0; i < numberOfCompany; i++) {
-            companyEmployeeWagesArray[i].setTotalEmployeeWage(this.calculateEmployeeWage(companyEmployeeWagesArray[i]));
-            System.out.println(companyEmployeeWagesArray[i]);
-            System.out.println("---------------------------------------------------");
+    public void calculateEmployeeWage() {
+        for (CompanyEmployeeWage companyEmployeeWage : companyEmployeeWageLinkedList) {
+            companyEmployeeWage.setTotalEmployeeWage(this.calculateEmployeeWage(companyEmployeeWage));
+            System.out.println(companyEmployeeWage);
         }
     }
-    int calculateEmployeeWage(CompanyEmployeeWage companyEmployeeWage) {
-        int dayCount = 0;
-        int workingHours;
-        int totalEmployeeWorkHour = 0;
-        while (dayCount < companyEmployeeWage.totalWorkingDaysPerMonth && totalEmployeeWorkHour <= companyEmployeeWage.totalWorkingHoursPerMonth) {
-            dayCount++;
-            Random ran = new Random();
-            int attendance = ran.nextInt(3);
-            switch (attendance) {
-                case FULL_TIME -> workingHours = 8;
-                case PART_TIME -> workingHours = 4;
-                default -> workingHours = 0;
-            }
-            System.out.println("Day " + dayCount + " work hour => " + workingHours);
-            totalEmployeeWorkHour += workingHours;
-        }
-        return totalEmployeeWorkHour * companyEmployeeWage.wagePerHour;
+    @Override
+    public int getTotalWage(String companyName) {
+        return companyEmployeeWageMap.get(companyName).totalEmployeeWage;
     }
     public static void main(String[] args) {
-        EmployeeWageBuilderArray employeeWageBuilder = new EmployeeWageBuilderArray();
-        employeeWageBuilder.companyEmployeeWage("Company One",20,20,100);
-        employeeWageBuilder.companyEmployeeWage("Company Two",25,22,120);
-        employeeWageBuilder.companyEmployeeWage("Company Three",30,26,150);
+        InterfaceCalculateEmployeeWage employeeWageBuilder = new EmployeeWageBuilderArray();
+        employeeWageBuilder.companyEmployeeWages("Company One",20,20,100);
+        employeeWageBuilder.companyEmployeeWages("Company Two",25,22,120);
+        employeeWageBuilder.companyEmployeeWages("Company Three",30,26,150);
         employeeWageBuilder.calculateEmployeeWage();
     }
 }
